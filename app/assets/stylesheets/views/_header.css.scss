@@ -1,0 +1,69 @@
+@import "mixins/all";
+
+$headerHeight: lines(2.5);
+
+.header {
+  height: $headerHeight;
+  width: 100%;
+}
+
+.global-header-wrapper {
+  @include wrapper;
+  // No padding on mobile
+  padding-left: 0;
+  padding-right: 0;
+  @include media(mid-desktop) {
+    padding-left: lines(0.5);
+    padding-right: lines(0.5);
+  }
+}
+
+.header-left {
+  float: left;
+}
+
+.header-right {
+  float: right;
+  margin-left: lines(0.5);
+}
+
+.header-logo {
+  display: block;
+  $logoHeight: em(40);
+  padding-top: ($headerHeight - $logoHeight) / 2;
+  padding-bottom: ($headerHeight - $logoHeight) / 2;
+}
+
+.header-text-link {
+  display: inline-block;
+  line-height: $headerHeight;
+  padding-right: lines(0.75);
+}
+
+@mixin header-menu-button($bgcolor) {
+  @include button($bgcolor);
+
+  $buttonHeight: em(40);
+
+  display: block;
+  padding-left: em(20);
+  padding-right: em(20);
+  margin-top: ($headerHeight - $buttonHeight) / 2;
+  margin-top: ($headerHeight - $buttonHeight) / 2;
+  height: $buttonHeight;
+  line-height: $buttonHeight - em(3); // -3px finetuning, text looks better
+}
+
+.new-listing-link {
+  @include header-menu-button($link2);
+}
+
+.header-menu {
+  @include header-menu-button($highlight);
+  color: $body;
+}
+
+.header-menu-text {
+  display: inline-block;
+  padding-left: lines(0.25);
+}
