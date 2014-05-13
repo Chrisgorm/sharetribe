@@ -5,21 +5,44 @@
     .header-left
       = link_to "/", :class => "header-logo" do
         = image_tag community.wide_logo.url(:header).or_else(Community::DEFAULT_WIDE_LOGO)
-    .header-right
+    .header-right.header-padding
       = link_to t("homepage.index.post_new_listing"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link"
-    .header-right
+    .header-right.header-padding
       .header-menu
         %span
           = icon_tag("rows", ["icon-fix"])
         %span.header-menu-text
           Menu
-    .header-right
-      = link_to "English", "/", class: "header-text-link"
-    .header-right
-      = link_to "Sign up", sign_up_path, class: "header-text-link"
-    .header-right
-      = link_to "Log in", login_path, class: "header-text-link"
+    - if @current_user
 
+      .header-right
+        .header-user-toggle.toggle{data: {toggle: '#header-user-toggle-menu'}}
+          .left
+            = image_tag @current_user.image.url(:thumb), alt: '', class: 'header-user-avatar'
+          .left
+            %span.header-text-link
+              = @current_user.name(@current_community)
+              = icon_tag("dropdown", ["icon-dropdown"])
+        #header-user-toggle-menu.toggle-menu.hidden
+          %a= "About"
+          %a= "Contact"
+          %a= "Blog"
+
+    - with_available_locales do |locales|
+      .header-right
+        .toggle{data: {toggle: '#header-locales-toggle-menu'}}
+          %span.header-text-link
+            = "English"
+            = icon_tag("dropdown", ["icon-dropdown"])
+        #header-locales-toggle-menu.toggle-menu.hidden
+          = render :partial => "layouts/locale_select", :collection => locales, :as => :loc_array
+
+
+    - unless @current_user
+      .header-right
+        = link_to "Sign up", sign_up_path, class: "header-text-link"
+      .header-right
+        = link_to "Log in", login_path, class: "header-text-link"
 
 -#
   %header.global-header.marketplace-header
