@@ -21,6 +21,10 @@ $elementSpacing: lines(0.5);
   width: 100%;
 }
 
+.header-wrapper {
+  @include wrapper(0);
+}
+
 .header-left {
   float: left;
 }
@@ -52,6 +56,14 @@ $elementSpacing: lines(0.5);
   }
 }
 
+.header-logo-container {
+  margin-left: $elementSpacing;
+
+  @include media(tablet) {
+    margin-left: 0;
+  }
+}
+
 .header-logo {
   display: block;
   @include header-block;
@@ -67,6 +79,10 @@ $elementSpacing: lines(0.5);
 
   &:hover {
     color: $body;
+  }
+
+  .toggled & {
+    color: $background;
   }
 }
 
@@ -84,8 +100,7 @@ $elementSpacing: lines(0.5);
 
 .header-menu-container {
   display: block;
-  padding-top: $elementPadding;
-  padding-bottom: $elementPadding;
+  padding: $elementPadding $elementSpacing;
   height: $headerHeight;
 }
 
@@ -124,8 +139,30 @@ $elementSpacing: lines(0.5);
   @include clearfix;
 }
 
-.header-toggle-menu {
-  min-width: 200px;
+@mixin header-toggle-menu {
+  min-width: em(200);
+  position: absolute;
+  top: $headerHeight;
+
+  @include media(tablet) {
+    top: initial;
+    left: initial;
+    right: initial;
+  }
+}
+
+.header-toggle-menu-language {
+  @include header-toggle-menu;
+}
+
+.header-toggle-menu-user {
+  right: 0;
+  @include header-toggle-menu;
+}
+
+.header-toggle-menu-menu {
+  left: 0;
+  @include header-toggle-menu;
 }
 
 .header-inbox-link {
