@@ -21,17 +21,6 @@ $elementSpacing: lines(0.5);
   width: 100%;
 }
 
-.global-header-wrapper {
-  @include wrapper;
-  // No padding on mobile
-  padding-left: 0;
-  padding-right: 0;
-  @include media(mid-desktop) {
-    padding-left: lines(0.5);
-    padding-right: lines(0.5);
-  }
-}
-
 .header-left {
   float: left;
 }
@@ -59,9 +48,11 @@ $elementSpacing: lines(0.5);
 }
 
 .header-text-link {
+  height: $headerHeight;
   line-height: $textLineHeight;
   padding-right: $elementSpacing;
   padding-left: $elementSpacing;
+  display: inline-block;
 }
 
 @mixin header-menu-button($bgcolor) {
@@ -112,4 +103,14 @@ $elementSpacing: lines(0.5);
 
 .header-toggle-menu {
   min-width: 200px;
+}
+
+.header-hover {
+  &:hover {
+    background-color: $highlight;
+  }
+
+  &.toggled {
+    background-color: $light-body;
+  }
 }

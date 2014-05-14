@@ -1,35 +1,43 @@
 -# Hide header in map view if mobile
 - community = Maybe(@current_community)
 %header.header{:class => (params[:view].eql?("map") ? "visible-tablet" : "")}
-  .global-header-wrapper
+  .wrapper
     .header-left
       = link_to "/", :class => "header-logo" do
         = image_tag community.wide_logo.url(:header).or_else(Community::DEFAULT_WIDE_LOGO)
     .header-right.header-padding
       = link_to t("homepage.index.post_new_listing"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link"
-    .header-right.header-padding
-      .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu'}}
-        .header-menu-toggle-container.toggle-header-container
-          = icon_tag("rows", ["icon-with-text"])
-          Menu
+    - Maybe(@current_user).each do |current_user|
+      .header-right.header-padding
+        .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu'}}
+          .header-menu-toggle-container.toggle-header-container
+            = icon_tag("rows", ["icon-with-text"])
+            Menu
 
-      #header-menu-toggle-menu.toggle-menu.header-toggle-menu.hidden
-        = link_to person_path(@current_user) do
-          = icon_tag("user", ["icon-with-text"])
-          = t("header.profile")
+        #header-menu-toggle-menu.toggle-menu.header-toggle-menu.hidden
 
-        = link_to person_settings_path(@current_user) do
-          = icon_tag("settings", ["icon-with-text"])
-          = t("layouts.logged_in.settings")
+          = link_to about_infos_path do
+            = icon_tag("information", ["icon-with-text"])
+            = t("header.about")
 
-        = link_to logout_path do
-          = icon_tag("logout", ["icon-with-text"])
-          = t("layouts.logged_in.logout")
+          = link_to new_user_feedback_path do
+            = icon_tag("feedback", ["icon-with-text"])
+            = t("header.contact_us")
+
+          - with_invite_link do
+            = link_to new_invitation_path do
+              = icon_tag("invite", ["icon-with-text"])
+              = t("header.invite")
+
+          - if logged_in? && @current_user.has_admin_rights_in?(@current_community)
+            = link_to edit_details_admin_community_path(@current_community) do
+              = icon_tag("admin", ["icon-with-text"])
+              = t("layouts.logged_in.admin")
 
     - if @current_user
 
       .header-right
-        .header-user-toggle.toggle{data: {toggle: '#header-user-toggle-menu'}}
+        .header-user-toggle.header-hover.toggle{data: {toggle: '#header-user-toggle-menu'}}
           .left
             = image_tag @current_user.image.url(:thumb), alt: '', class: 'header-user-avatar'
           .left
@@ -52,7 +60,7 @@
 
     - with_available_locales do |locales|
       .header-right
-        .toggle{data: {toggle: '#header-locales-toggle-menu'}}
+        .toggle.header-hover{data: {toggle: '#header-locales-toggle-menu'}}
           %span.header-text-link
             = "English"
             = icon_tag("dropdown", ["icon-dropdown"])
