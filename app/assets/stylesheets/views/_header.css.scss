@@ -1,6 +1,20 @@
 @import "mixins/all";
 
+/* Height of the whole header bar */
 $headerHeight: lines(2.5);
+
+/* Height of an element (i.e. button) in the header bar */
+$elementHeight: em(40);
+
+/* Element padding, i.e. empty space on the top and below of the element */
+$elementPadding: ($headerHeight - $elementHeight) / 2;
+
+/* Line heights, add -3px finetuning, text looks better */
+$buttonLineHeight: $elementHeight - em(3);
+$textLineHeight: $headerHeight - em(3);
+
+/* Default spacing between header bar elements */
+$elementSpacing: lines(0.5);
 
 .header {
   height: $headerHeight;
@@ -28,59 +42,74 @@ $headerHeight: lines(2.5);
 
 /* Buttons may need padding, text links don't */
 .header-padding {
-  margin-left: lines(0.5);
+  margin-left: $elementSpacing;
 }
 
 /* Vertically centered block element in header bar */
-@mixin header-block($height) {
+@mixin header-block {
   display: block;
-  margin-top: ($headerHeight - $height) / 2;
-  margin-bottom: ($headerHeight - $height) / 2;
-  height: $height;
+  margin-top: $elementPadding;
+  margin-bottom: $elementPadding;
+  height: $elementHeight;
 }
 
 .header-logo {
   display: block;
-  $logoHeight: em(40);
-  @include header-block($logoHeight)
+  @include header-block;
 }
 
 .header-text-link {
-  line-height: $headerHeight;
-  padding-right: lines(0.5);
-  padding-left: lines(0.5);
+  line-height: $textLineHeight;
+  padding-right: $elementSpacing;
+  padding-left: $elementSpacing;
 }
 
 @mixin header-menu-button($bgcolor) {
   @include button($bgcolor);
-  $buttonHeight: em(40);
-  @include header-block($buttonHeight);
+  @include header-block;
   padding-left: em(20);
   padding-right: em(20);
-  line-height: $buttonHeight - em(3); // -3px finetuning, text looks better
+  line-height: $buttonLineHeight;
 }
 
 .new-listing-link {
   @include header-menu-button($link2);
 }
 
-.header-menu {
-  @include header-menu-button($highlight);
-  color: $body;
+.header-menu-container {
+  display: block;
+  padding-top: $elementPadding;
+  padding-bottom: $elementPadding;
+  height: $headerHeight;
 }
 
-.header-menu-text {
-  display: inline-block;
-  padding-left: lines(0.25);
+.header-menu-toggle-container {
+  @include button($highlight);
+  @include button-group-button-padding;
+  height: $elementHeight;
+  line-height: $buttonLineHeight;
+  margin: 0;
+  padding-bottom: 0;
+  padding-top: 0;
+  color: $body;
+
+  .toggled & {
+    color: $background;
+    background-color: $light-body;
+  }
 }
 
 .header-user-avatar {
   @include border-radius($default-border-radius);
-  @include header-block(em(40));
+  @include header-block;
 }
 
 .header-user-toggle {
-  padding-left: lines(0.5);
+  padding-left: $elementSpacing;
   display: block;
   @include clearfix;
+}
+
+.header-toggle-menu {
+  min-width: 200px;
 }

@@ -8,11 +8,24 @@
     .header-right.header-padding
       = link_to t("homepage.index.post_new_listing"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link"
     .header-right.header-padding
-      .header-menu
-        %span
-          = icon_tag("rows", ["icon-fix"])
-        %span.header-menu-text
+      .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu'}}
+        .header-menu-toggle-container.toggle-header-container
+          = icon_tag("rows", ["icon-with-text"])
           Menu
+
+      #header-menu-toggle-menu.toggle-menu.header-toggle-menu.hidden
+        = link_to person_path(@current_user) do
+          = icon_tag("user", ["icon-with-text"])
+          = t("header.profile")
+
+        = link_to person_settings_path(@current_user) do
+          = icon_tag("settings", ["icon-with-text"])
+          = t("layouts.logged_in.settings")
+
+        = link_to logout_path do
+          = icon_tag("logout", ["icon-with-text"])
+          = t("layouts.logged_in.logout")
+
     - if @current_user
 
       .header-right
@@ -23,10 +36,19 @@
             %span.header-text-link
               = @current_user.name(@current_community)
               = icon_tag("dropdown", ["icon-dropdown"])
-        #header-user-toggle-menu.toggle-menu.hidden
-          %a= "About"
-          %a= "Contact"
-          %a= "Blog"
+        #header-user-toggle-menu.toggle-menu.header-toggle-menu.hidden
+
+          = link_to person_path(@current_user) do
+            = icon_tag("user", ["icon-with-text"])
+            = t("header.profile")
+
+          = link_to person_settings_path(@current_user) do
+            = icon_tag("settings", ["icon-with-text"])
+            = t("layouts.logged_in.settings")
+
+          = link_to logout_path do
+            = icon_tag("logout", ["icon-with-text"])
+            = t("layouts.logged_in.logout")
 
     - with_available_locales do |locales|
       .header-right
@@ -34,7 +56,7 @@
           %span.header-text-link
             = "English"
             = icon_tag("dropdown", ["icon-dropdown"])
-        #header-locales-toggle-menu.toggle-menu.hidden
+        #header-locales-toggle-menu.toggle-menu.header-toggle-menu.hidden
           = render :partial => "layouts/locale_select", :collection => locales, :as => :loc_array
 
 
