@@ -5,20 +5,24 @@
     .header-right.header-padding.visible-tablet
       = link_to t("homepage.index.post_new_listing"), new_listing_path, :class => "new-listing-link", :id => "new-listing-link"
 
-    #header-menu-desktop-anchor.header-right
+    .header-right.visible-tablet
+      #header-menu-desktop-anchor.header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu'}}
 
     - Maybe(@current_user).each do |user|
       - unread_count = Conversation.unread_count(user.id.to_s)
 
       .header-right
-        .header-user-toggle.header-hover.toggle{data: {toggle: '#header-user-toggle-menu', 'toggle-anchor' => 'left'}}
-          .left
-            = image_tag user.image.url(:thumb), alt: '', class: 'header-user-avatar'
-          .left
-            %span.header-text-link
-              %span.visible-tablet-inline
-                = user.name(@current_community)
-              = icon_tag("dropdown", ["icon-dropdown"])
+        #header-user-desktop-anchor.header-user-toggle.header-hover.toggle{data: {toggle: '#header-user-toggle-menu', 'toggle-anchor-position' => 'left'}}
+        .header-user-toggle.header-hover.toggle{data: {toggle: '#header-user-toggle-menu', 'toggle-anchor-position' => 'right'}}
+          #header-user-mobile-anchor
+            .left
+              = image_tag user.image.url(:thumb), alt: '', class: 'header-user-avatar'
+            .left
+              %span.header-text-link
+                %span.visible-tablet-inline
+                  = user.name(@current_community)
+                = icon_tag("dropdown", ["icon-dropdown"])
+
         #header-user-toggle-menu.toggle-menu.header-toggle-menu-user.hidden
 
           = link_to received_person_messages_path(:person_id => @current_user.id.to_s) do
@@ -51,7 +55,7 @@
       .header-right.visible-desktop
         .toggle.header-hover{data: {toggle: '#header-locales-toggle-menu'}}
           %span.header-text-link
-            = "English"
+            = get_full_locale_name(I18n.locale).mb_chars.downcase.to_s
             = icon_tag("dropdown", ["icon-dropdown"])
         #header-locales-toggle-menu.toggle-menu.header-toggle-menu-language.hidden
           = render :partial => "layouts/locale_select", :collection => locales, :as => :loc_array
@@ -62,32 +66,32 @@
       .header-right.visible-desktop
         = link_to "Log in", login_path, class: "header-text-link header-hover"
 
-    #header-menu-mobile-anchor.header-left
+    .header-left
       .header-menu-container.toggle.hidden{data: {toggle: '#header-menu-toggle-menu'}}
-        .header-menu-toggle-container.toggle-header-container
+        #header-menu-mobile-anchor.header-menu-toggle-container.toggle-header-container
           = icon_tag("rows", ["header-menu-icon"])
           %span.visible-tablet-inline
             Menu
 
-      #header-menu-toggle-menu.toggle-menu.header-toggle-menu-menu.hidden
+    #header-menu-toggle-menu.toggle-menu.header-toggle-menu-menu.hidden
 
-        = link_to about_infos_path do
-          = icon_tag("information", ["icon-with-text"])
-          = t("header.about")
+      = link_to about_infos_path do
+        = icon_tag("information", ["icon-with-text"])
+        = t("header.about")
 
-        = link_to new_user_feedback_path do
-          = icon_tag("feedback", ["icon-with-text"])
-          = t("header.contact_us")
+      = link_to new_user_feedback_path do
+        = icon_tag("feedback", ["icon-with-text"])
+        = t("header.contact_us")
 
-        - with_invite_link do
-          = link_to new_invitation_path do
-            = icon_tag("invite", ["icon-with-text"])
-            = t("header.invite")
+      - with_invite_link do
+        = link_to new_invitation_path do
+          = icon_tag("invite", ["icon-with-text"])
+          = t("header.invite")
 
-        - if @current_user && @current_community && @current_user.has_admin_rights_in?(@current_community)
-          = link_to edit_details_admin_community_path(@current_community) do
-            = icon_tag("admin", ["icon-with-text"])
-            = t("layouts.logged_in.admin")
+      - if @current_user && @current_community && @current_user.has_admin_rights_in?(@current_community)
+        = link_to edit_details_admin_community_path(@current_community) do
+          = icon_tag("admin", ["icon-with-text"])
+          = t("layouts.logged_in.admin")
 
     -#
       If necessary, the buttons will overlap with the logo. Buttons should be on top, that's

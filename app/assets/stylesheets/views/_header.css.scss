@@ -74,7 +74,7 @@ $elementSpacing: lines(0.5);
   line-height: $textLineHeight;
   padding-right: $elementSpacing;
   padding-left: $elementSpacing;
-  display: inline-block;
+  display: block;
   color: $body;
 
   &:hover {
@@ -142,13 +142,6 @@ $elementSpacing: lines(0.5);
 @mixin header-toggle-menu {
   min-width: em(200);
   position: absolute;
-  top: $headerHeight;
-
-  @include media(tablet) {
-    top: initial;
-    left: initial;
-    right: initial;
-  }
 }
 
 .header-toggle-menu-language {
@@ -156,12 +149,10 @@ $elementSpacing: lines(0.5);
 }
 
 .header-toggle-menu-user {
-  right: 0;
   @include header-toggle-menu;
 }
 
 .header-toggle-menu-menu {
-  left: 0;
   @include header-toggle-menu;
 }
 
