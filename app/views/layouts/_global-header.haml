@@ -58,6 +58,14 @@
             = icon_tag("logout", ["icon-with-text"])
             = t("layouts.logged_in.logout")
 
+      .header-right
+        = link_to received_person_messages_path(:person_id => @current_user.id.to_s), title: t("layouts.conversations.messages"), :id => "inbox-link", :class => "header-text-link header-hover header-inbox-link" do
+          = icon_tag("mail", ["header-inbox"])
+          - unread_count = Conversation.unread_count(@current_user.id.to_s)
+          - if unread_count > 0
+            .badge{:class => get_badge_class(unread_count)}
+              = unread_count
+
     - with_available_locales do |locales|
       .header-right
         .toggle.header-hover{data: {toggle: '#header-locales-toggle-menu'}}
@@ -66,7 +74,6 @@
             = icon_tag("dropdown", ["icon-dropdown"])
         #header-locales-toggle-menu.toggle-menu.header-toggle-menu.hidden
           = render :partial => "layouts/locale_select", :collection => locales, :as => :loc_array
-
 
     - unless @current_user
       .header-right
