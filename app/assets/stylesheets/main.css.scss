@@ -3442,6 +3442,10 @@ header.marketplace-header {
     }
   }
 
+  .lander-content-container {
+    position: relative;
+  }
+
   .marketplace-lander-content {
     top: lines($lander-content-top-mobile);
 
