@@ -11,8 +11,8 @@ Feature: User accepts new terms
     Then I should see "Terms of use have changed"
     When I press "I accept the new terms"
     Then I should see "Welcome"
-    And I should not see "log in"
-  
+    And I should not see "Log in"
+
   @javascript
   Scenario: User does not accept the terms
     Given I am not logged in
@@ -20,13 +20,4 @@ Feature: User accepts new terms
     When I log in as "kassi_testperson2"
     Then I should see "Terms of use have changed"
     When I follow "global-navi-home"
-    Then I should see "log in"
-  
-  
-  
-  
-  
-  
-  
-
-
+    Then I should see "Log in"

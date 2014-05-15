@@ -160,7 +160,7 @@ Given(/^there are (\d+) users with name prefix "([^"]*)" "([^"]*)"$/) do |user_c
 end
 
 When /^I log out$/ do
-  find(".user-menu-toggle").click
+  find("#header-user-mobile-anchor").click
   click_link "Log out"
 end
 
