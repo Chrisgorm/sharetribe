@@ -12,7 +12,7 @@ Feature: User checks inbox
     And there is a listing with title "Massage" from "kassi_testperson1" with category "Services" and with transaction type "Requesting"
     And there is a message "Test message" from "kassi_testperson2" about that listing
     And I am logged in as "kassi_testperson1"
-    When I follow "inbox-link"
+    When I follow inbox link
     Then I should see "Massage" within ".inbox-feed"
     And I should see "Messages" within ".selected"
     And I should see "Notifications" within ".left-navi"
@@ -28,7 +28,7 @@ Feature: User checks inbox
     And there is a listing with title "Massage" from "kassi_testperson1" with category "Services" and with transaction type "Requesting"
     And there is a message "Test message" from "kassi_testperson2" about that listing
     And I am logged in as "kassi_testperson1"
-    When I follow "inbox-link"
+    When I follow inbox link
     And I follow "Test message"
     Then I should see "Test message" within "h2"
 
@@ -68,7 +68,7 @@ Feature: User checks inbox
     When I refresh the page
     Then I should see "2" within "#inbox-link"
 
-    When I follow "inbox-link"
+    When I follow inbox link
     Then I should see "Reply to massage"
     And I should see "Massage"
     And I should see "Another test"
@@ -78,7 +78,7 @@ Feature: User checks inbox
     And I should see "Helsinki - Turku"
     And I should see "Fine"
     And I follow "Fine"
-    And I follow "inbox-link"
+    And I follow inbox link
     And I should not see "Fine" within ".unread"
     And I should see "1" within "#inbox-link"
 
@@ -101,7 +101,7 @@ Feature: User checks inbox
     And there is a message "Test3" from "kassi_testperson1" about that listing
     And there is a reply "Fine" to that message by "kassi_testperson2"
     And I am logged in as "kassi_testperson1"
-    When I follow "inbox-link"
+    When I follow inbox link
     Then I should see "Ok"
     And I should see "Massage"
     And I should see "Another test"
