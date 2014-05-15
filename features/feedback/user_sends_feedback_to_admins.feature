@@ -16,8 +16,8 @@ Feature: User sends feedback to admins
   @javascript
   Scenario: Giving feedback successfully when logged in
     Given I am logged in
-    When I click ".user-menu-toggle"
-    And I follow "feedback-menu-button"
+    When I open the menu
+    And I follow "Contact us" within the menu
     Then I should not see "Your email"
     When I fill in "What would you like to tell us?" with "Feedback"
     And I press "Send feedback"
@@ -36,8 +36,8 @@ Feature: User sends feedback to admins
   @javascript
   Scenario: Trying to send a spam link
     Given I am logged in
-    When I click ".user-menu-toggle"
-    And I follow "feedback-menu-button"
+    When I open the menu
+    And I follow "Contact us" within the menu
     And I fill in "What would you like to tell us?" with "[url=testi"
     And I press "Send feedback"
     Then I should see "Feedback not saved, due to its formatting. Try again or use the feedback forum." within ".flash-notifications"

@@ -14,7 +14,7 @@ Feature: Seller creates an invoice with Braintree
     And there is a pending request "I request this" from "kassi_testperson2" about that listing
     And I am logged in as "kassi_testperson1"
     When I follow inbox link
-    Then I should see "1" within ".inbox-link"
+    Then I should see that there is 1 new message
 
   @javascript
   Scenario: User can not accept request without Braintree account

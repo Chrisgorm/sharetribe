@@ -23,8 +23,7 @@ Feature: User sends a new message
     Then I should see "Question about the hammer"
     And I should see "What kind of hammer is this?"
     And I should not see "Awaiting confirmation from listing author"
-    When I click ".user-menu-toggle"
-    When I follow "Log out"
+    When I log out
     And I log in as "kassi_testperson1"
     And I follow inbox link
     Then I should not see "Accept"
@@ -74,8 +73,7 @@ Feature: User sends a new message
     Then I should see "Random title"
     And I should see "Random message"
     And I should not see "Awaiting confirmation from listing author"
-    When I click ".user-menu-toggle"
-    When I follow "Log out"
+    When I log out
     And I log in as "kassi_testperson1"
     And I follow inbox link
     Then I should not see "Accept"
