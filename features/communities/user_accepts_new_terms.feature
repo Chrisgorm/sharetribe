@@ -19,5 +19,5 @@ Feature: User accepts new terms
     And the terms of community "test" are changed to "KASSI_FI2.0"
     When I log in as "kassi_testperson2"
     Then I should see "Terms of use have changed"
-    When I follow "global-navi-home"
+    When I click the community logo
     Then I should see "Log in"
